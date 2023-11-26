@@ -7,17 +7,17 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors(
-   {
-    origin: ["https://todo-app-pied-mu.vercel.app"],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true
-   }
-));
 app.use(bodyParser.json());
+app.use(cors({
+   origin: ["https://todo-app-pied-mu.vercel.app"],
+   methods: ["POST", "GET", "PUT", "DELETE"],
+   credentials: true
+}));
+
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/taskk');
+mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tassk?retryWrites=true&w=majority');
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
