@@ -7,6 +7,8 @@ function TodoList() {
   const [todos, setTodos] = useState([]);
   const [totalTodos, setTotalTodos] = useState('');
 
+  axios.defaults.withCredentials = true;
+
   useEffect(() => {
     fetchTodos();
   }, []);

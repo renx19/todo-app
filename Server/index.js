@@ -9,9 +9,9 @@ const port = process.env.PORT || 3001;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-   origin: ["https://todo-app-silk-sigma.vercel.app/"],
-   methods: ["POST", "GET", "PUT", "DELETE"],
-   credentials: true
+  origin: ["https://todo-app-frontend-cyan.vercel.app"],
+  methods: ["POST", "GET", "PUT", "DELETE"],
+  credentials: true
 }));
 
 
