@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-   origin: ["https://todo-app-pied-mu.vercel.app"],
+   origin: ["https://todo-app-silk-sigma.vercel.app/"],
    methods: ["POST", "GET", "PUT", "DELETE"],
    credentials: true
 }));
