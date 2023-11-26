@@ -1,8 +1,7 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require ('body-parser')
+const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -14,9 +13,11 @@ app.use(cors({
   credentials: true
 }));
 
-
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tassk?retryWrites=true&w=majority');
+
+
+
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
