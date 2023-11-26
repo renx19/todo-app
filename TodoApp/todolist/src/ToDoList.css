@@ -1,0 +1,168 @@
+:root {
+  --body_background-color: #f0f8ff;
+  --body_color: #9158d3;
+}
+[data-theme="dark"] {
+  --body_background-color: #333333;
+  --body_color: cyan;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+body {
+  background: #727575;
+  min-height: 100vh;
+}
+
+.sticky-top-right {
+}
+
+.todo-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 520px;
+  min-height: 600px;
+  color: var(--body_color);
+  background: var(--body_background-color);
+  text-align: center;
+  margin: 128px auto;
+  border-radius: 10px;
+  padding-bottom: 32px;
+  border: solid 3px var(--body_color);
+  margin-bottom: 20rem;
+}
+
+.td {
+  margin: 32px 0;
+  color: var(--body_color);
+  font-size: 24px;
+}
+
+.complete {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+.todo-form {
+  margin-bottom: 32px;
+}
+
+.todo-input {
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 2px solid var(--body_color);
+  outline: none;
+  width: 360px;
+  background: transparent;
+  color: var(--body_color);
+}
+
+.todo-input::placeholder {
+  color: var(--body_color);
+}
+
+.todo-button {
+  padding: 16px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  outline: none;
+  background: var(--body_color);
+  color: #1c1c1c;
+  text-transform: capitalize;
+}
+
+.todo-input.edit {
+  border: 2px solid var(--body_color);
+}
+
+.todo-button.edit {
+  background: linear-gradient(
+    90deg,
+    rgb(51, 214, 222) 0%,
+    rgb(51, 214, 222) 0%
+  );
+  padding: 16px 22px;
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+/* .todo-row styles remain the same */
+.todo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px auto;
+  color: #fff;
+  padding: 16px;
+  border-radius: 5px;
+  width: 90%;
+}
+
+/* You can keep your .todo-row styles as they are */
+/* .todo-row styles */
+.todo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px auto;
+  color: #fff;
+  padding: 16px;
+  border-radius: 5px;
+  width: 90%;
+}
+
+/* Define background colors for the first 5 rows */
+.todo-row:nth-child(5n + 1) {
+  background: #aa5376;
+}
+
+.todo-row:nth-child(5n + 2) {
+  background: #3b3758;
+}
+
+.todo-row:nth-child(5n + 3) {
+  background: #7aacb3;
+}
+
+.todo-row:nth-child(5n + 4) {
+  background: #4d6e81;
+}
+
+.todo-row:nth-child(5n + 5) {
+  background: #cf8da8;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.delete-icon {
+  margin-right: 5px;
+  color: #fff;
+}
+
+.edit-icon {
+  color: #fff;
+}
+@media screen and (max-width: 450px) {
+  .todo-app {
+    width: 100%;
+  }
+  .todo-input {
+    width: 200px;
+  }
+}
