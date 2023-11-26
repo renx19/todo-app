@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001;
 // Middleware
 app.use(cors(
    {
-    origin: ["https://todo-app-pied-mu.vercel.app/"],
+    origin: ["https://todo-app-pied-mu.vercel.app"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
    }
@@ -17,7 +17,7 @@ app.use(cors(
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tazk');
+mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/taskk');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
