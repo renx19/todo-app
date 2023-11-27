@@ -1,18 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
-app.use(bodyParser.json());
+app.use(express.json())
 const corsOptions = {
   origin: 'https://todo-app-frontend-beryl.vercel.app',
   methods: 'POST,GET,PUT,DELETE',
   credentials: true,
 };
-app.use(express.json())
+
 app.use(cors(corsOptions));
 
 
