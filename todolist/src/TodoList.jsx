@@ -78,20 +78,28 @@ import axios from 'axios';
 
   return (
     <div className='ToDoList'>
-      <h1 className='td'>
-        Set your plan for today <br />
-        {todos.length === 0 ? '' : `${todos.filter((todo) => todo.isComplete).length} / ${todos.length}`} Complete
-      </h1>
-
-      <TodoForm onSubmit={addTodo} />
-      <ToDo
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
+      {loading ? (
+        // Add a loading spinner or message here
+        <p>Loading...</p>
+      ) : (
+        <>
+          <h1 className='td'>
+            Set your plan for today <br />
+            {todos.length === 0 ? '' : `${todos.filter((todo) => todo.isComplete).length} / ${todos.length}`} Complete
+          </h1>
+  
+          <TodoForm onSubmit={addTodo} />
+          <ToDo
+            todos={todos}
+            completeTodo={completeTodo}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+          />
+        </>
+      )}
     </div>
   );
+  
 }
 
 export default TodoList;
