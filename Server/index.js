@@ -7,11 +7,14 @@ const port = process.env.PORT || 3001;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors({
-  origin: ["https://todo-app-frontend-beryl.vercel.app"],
-  methods: ["POST", "GET", "PUT", "DELETE"],
-  credentials: true
-}));
+const corsOptions = {
+  origin: 'https://todo-app-frontend-beryl.vercel.app',
+  methods: 'POST,GET,PUT,DELETE',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tassk?retryWrites=true&w=majority');
