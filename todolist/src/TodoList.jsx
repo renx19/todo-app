@@ -3,33 +3,37 @@ import TodoForm from './TodoForm';
 import ToDo from './ToDo';
 import axios from 'axios';
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const [totalTodos, setTotalTodos] = useState('');
-
-  axios.defaults.withCredentials = true;
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  const fetchTodos = () => {
-    axios.get('https://todo-app-two-ashy.vercel.app/todos')
-      .then(response => setTodos(response.data))
-      .catch(error => console.error(error));
-  };
-
-  const addTodo = (todo) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
+  function TodoList() {
+    const [todos, setTodos] = useState([]);
+    const [loading, setLoading] = useState(true);
   
-    axios.post('https://todo-app-two-ashy.vercel.app/add', todo)
-      .then(response => {
-        setTodos(prevTodos => [response.data, ...prevTodos]);
-      })
-      .catch(error => console.error(error));
-  };
+    useEffect(() => {
+      fetchTodos();
+    }, []);
+  
+    const fetchTodos = () => {
+      axios.get('https://todo-app-two-ashy.vercel.app/todos')
+        .then(response => {
+          setTodos(response.data);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching todos:', error);
+          setLoading(false);
+        });
+    };
+  
+    const addTodo = (todo) => {
+      if (!todo.text || /^\s*$/.test(todo.text)) {
+        return;
+      }
+  
+      axios.post('https://todo-app-two-ashy.vercel.app/add', todo)
+        .then(response => {
+          setTodos(prevTodos => [response.data, ...prevTodos]);
+        })
+        .catch(error => console.error('Error adding todo:', error));
+    };
   
   const updateTodo = (todoId, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
