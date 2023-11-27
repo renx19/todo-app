@@ -12,7 +12,7 @@ const corsOptions = {
   methods: 'POST,GET,PUT,DELETE',
   credentials: true,
 };
-
+app.use(express.json())
 app.use(cors(corsOptions));
 
 
