@@ -14,7 +14,7 @@ function TodoList() {
   }, []);
 
   const fetchTodos = () => {
-    axios.get('https://todo-app-two-ashy.vercel.app//todos')
+    axios.get('https://todo-app-two-ashy.vercel.app/todos')
       .then(response => setTodos(response.data))
       .catch(error => console.error(error));
   };
@@ -24,7 +24,7 @@ function TodoList() {
       return;
     }
   
-    axios.post('https://todo-app-two-ashy.vercel.app//add', todo)
+    axios.post('https://todo-app-two-ashy.vercel.app/add', todo)
       .then(response => {
         setTodos(prevTodos => [response.data, ...prevTodos]);
       })
@@ -46,7 +46,7 @@ function TodoList() {
   };
 
   const removeTodo = (id) => {
-    axios.delete(`https://todo-app-two-ashy.vercel.app//delete/${id}`)
+    axios.delete(`https://todo-app-two-ashy.vercel.app/delete/${id}`)
       .then(() => {
         // Use the correct property for comparison (_id instead of id)
         setTodos(prevTodos => prevTodos.filter((todo) => todo._id !== id));
@@ -56,7 +56,7 @@ function TodoList() {
   
 
   const completeTodo = (id) => {
-    axios.put(`https://todo-app-two-ashy.vercel.app//complete/${id}`)
+    axios.put(`https://todo-app-two-ashy.vercel.app/complete/${id}`)
       .then(() => {
         setTodos(prevTodos =>
           prevTodos.map((todo) =>

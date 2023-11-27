@@ -1,6 +1,6 @@
 :root {
   --body_background-color: #f0f8ff;
-  --body_color: #9158d3;
+  --body_color: rgb(51, 214, 222);
 }
 [data-theme="dark"] {
   --body_background-color: #333333;
