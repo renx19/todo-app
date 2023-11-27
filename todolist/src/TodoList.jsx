@@ -3,44 +3,45 @@ import TodoForm from './TodoForm';
 import ToDo from './ToDo';
 import axios from 'axios';
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  const fetchTodos = () => {
-    axios.get('/api/todos') // Updated route using the proxy
-      .then(response => {
-        setTodos(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching todos:', error);
-        setLoading(false);
-      });
-  };
-
-  const addTodo = (todo) => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
-
-    axios.post('/api/add', todo) // Updated route using the proxy
-      .then(response => {
-        setTodos(prevTodos => [response.data, ...prevTodos]);
-      })
-      .catch(error => console.error('Error adding todo:', error));
-  };
-
+  function TodoList() {
+    const [todos, setTodos] = useState([]);
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      fetchTodos();
+    }, []);
+  
+    const fetchTodos = () => {
+      axios.get('https://todo-app-two-ashy.vercel.app/todos')
+        .then(response => {
+          setTodos(response.data);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching todos:', error);
+          setLoading(false);
+        });
+    };
+  
+    const addTodo = (todo) => {
+      if (!todo.text || /^\s*$/.test(todo.text)) {
+        return;
+      }
+  
+      axios.post('https://todo-app-two-ashy.vercel.app/add', todo)
+        .then(response => {
+          setTodos(prevTodos => [response.data, ...prevTodos]);
+        })
+        .catch(error => console.error('Error adding todo:', error));
+    };
+  
   const updateTodo = (todoId, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
       return;
     }
 
-    axios.put(`/api/update/${todoId}`, { text: newValue.text }) // Updated route using the proxy
+    axios.put(`https://todo-app-two-ashy.vercel.app/update/${todoId}`, { text: newValue.text })
       .then(response => {
         setTodos(prevTodos =>
           prevTodos.map((item) => (item._id === todoId ? { ...item, text: response.data.text } : item))
@@ -50,15 +51,17 @@ function TodoList() {
   };
 
   const removeTodo = (id) => {
-    axios.delete(`/api/delete/${id}`) // Updated route using the proxy
+    axios.delete(`https://todo-app-two-ashy.vercel.app/delete/${id}`)
       .then(() => {
+        // Use the correct property for comparison (_id instead of id)
         setTodos(prevTodos => prevTodos.filter((todo) => todo._id !== id));
       })
       .catch(error => console.error(error));
   };
+  
 
   const completeTodo = (id) => {
-    axios.put(`/api/complete/${id}`) // Updated route using the proxy
+    axios.put(`https://todo-app-two-ashy.vercel.app/complete/${id}`)
       .then(() => {
         setTodos(prevTodos =>
           prevTodos.map((todo) =>
