@@ -36,7 +36,7 @@ function TodoList() {
       return;
     }
 
-    axios.put(`https://todo-app-two-ashy.vercel.app//update/${todoId}`, { text: newValue.text })
+    axios.put(`https://todo-app-two-ashy.vercel.app/update/${todoId}`, { text: newValue.text })
       .then(response => {
         setTodos(prevTodos =>
           prevTodos.map((item) => (item._id === todoId ? { ...item, text: response.data.text } : item))
