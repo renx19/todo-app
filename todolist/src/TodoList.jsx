@@ -3,6 +3,12 @@ import TodoForm from './TodoForm';
 import ToDo from './ToDo';
 import axios from 'axios';
 
+const apiUrl = 'https://todo-app-two-ashy.vercel.app/todos';
+const addUrl = 'https://todo-app-two-ashy.vercel.app/add';
+const updateUrl = 'https://todo-app-two-ashy.vercel.app/update';
+const deleteUrl = 'https://todo-app-two-ashy.vercel.app/delete';
+const completeUrl = 'https://todo-app-two-ashy.vercel.app/complete';
+
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [totalTodos, setTotalTodos] = useState('');
@@ -12,7 +18,7 @@ function TodoList() {
   }, []);
 
   const fetchTodos = () => {
-    axios.get('http://localhost:3001/todos')
+    axios.get(apiUrl)
       .then(response => setTodos(response.data))
       .catch(error => console.error(error));
   };
@@ -22,7 +28,7 @@ function TodoList() {
       return;
     }
   
-    axios.post('http://localhost:3001/add', todo)
+    axios.post(addUrl, todo)
       .then(response => {
         setTodos(prevTodos => [response.data, ...prevTodos]);
       })
@@ -34,7 +40,7 @@ function TodoList() {
       return;
     }
 
-    axios.put(`http://localhost:3001/update/${todoId}`, { text: newValue.text })
+    axios.put(`${updateUrl}/${todoId}`, { text: newValue.text })
       .then(response => {
         setTodos(prevTodos =>
           prevTodos.map((item) => (item._id === todoId ? { ...item, text: response.data.text } : item))
@@ -44,7 +50,7 @@ function TodoList() {
   };
 
   const removeTodo = (id) => {
-    axios.delete(`http://localhost:3001/delete/${id}`)
+    axios.delete(`${deleteUrl}/${id}`)
       .then(() => {
         // Use the correct property for comparison (_id instead of id)
         setTodos(prevTodos => prevTodos.filter((todo) => todo._id !== id));
@@ -54,7 +60,7 @@ function TodoList() {
   
 
   const completeTodo = (id) => {
-    axios.put(`http://localhost:3001/complete/${id}`)
+    axios.put(`${completeUrl}/${id}`)
       .then(() => {
         setTodos(prevTodos =>
           prevTodos.map((todo) =>
