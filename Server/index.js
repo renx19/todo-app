@@ -6,7 +6,7 @@ const port = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors({
-  origin: 'https://todo-app-frontend-beryl.vercel.app',
+  origin: 'https://todo-app-rho-pied.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
