@@ -1,19 +1,15 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 
 // Middleware
-
 app.use(cors({
-  origin: '*',
+  origin: 'https://todo-app-frontend-beryl.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
-
-
 app.use(express.json());
 
 // Connect to MongoDB
@@ -23,8 +19,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
-
-
 
 // Define Todo schema and model
 const todoSchema = new mongoose.Schema({
@@ -86,7 +80,6 @@ app.delete('/delete/:id', async (req, res) => {
   }
 });
 
-
 // Complete todo
 app.put('/complete/:id', async (req, res) => {
   const { id } = req.params;
@@ -102,6 +95,6 @@ app.put('/complete/:id', async (req, res) => {
 });
 
 // Start the server
-app.listen(5000, () => {
-  console.log("Server is Running")
-})
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
