@@ -6,13 +6,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run start-server & npm run start-client",
-    "install-server": "cd server && npm install",
+    "install": "cd server && npm install && cd ../todolist && npm install",
+    "build": "cd todolist && npm run build",
+    "start": "npm run install && npm run start-server & npm run start-client",
     "start-server": "cd server && node index.js",
-    "install-client": "cd todolist && npm install",
-    "build-client": "cd todolist && npm run build",
     "start-client": "cd todolist && npm run dev"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
