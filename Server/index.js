@@ -8,10 +8,11 @@ const port = process.env.PORT || 3001;
 // Middleware
 
 app.use(cors({
-  origin: 'https://todo-app-frontend-beryl.vercel.app',
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
+
 
 app.use(express.json());
 
