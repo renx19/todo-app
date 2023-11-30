@@ -3,39 +3,38 @@ import TodoForm from './TodoForm';
 import ToDo from './ToDo';
 import axios from 'axios';
 
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  function TodoList() {
-    const [todos, setTodos] = useState([]);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      fetchTodos();
-    }, []);
-  
-    const fetchTodos = () => {
-      axios.get('https://todo-app-two-ashy.vercel.app/todos')
-        .then(response => {
-          setTodos(response.data);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error('Error fetching todos:', error);
-          setLoading(false);
-        });
-    };
-  
-    const addTodo = (todo) => {
-      if (!todo.text || /^\s*$/.test(todo.text)) {
-        return;
-      }
-  
-      axios.post('https://todo-app-two-ashy.vercel.app/add', todo)
-        .then(response => {
-          setTodos(prevTodos => [response.data, ...prevTodos]);
-        })
-        .catch(error => console.error('Error adding todo:', error));
-    };
-  
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  const fetchTodos = () => {
+    axios.get('https://todo-app-two-ashy.vercel.app/todos')  // Use https instead of http
+      .then(response => {
+        setTodos(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching todos:', error);
+        setLoading(false);
+      });
+  };
+
+  const addTodo = (todo) => {
+    if (!todo.text || /^\s*$/.test(todo.text)) {
+      return;
+    }
+
+    axios.post('https://todo-app-two-ashy.vercel.app/add', todo)
+      .then(response => {
+        setTodos(prevTodos => [response.data, ...prevTodos]);
+      })
+      .catch(error => console.error('Error adding todo:', error));
+  };
+
   const updateTodo = (todoId, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
       return;
@@ -53,12 +52,10 @@ import axios from 'axios';
   const removeTodo = (id) => {
     axios.delete(`https://todo-app-two-ashy.vercel.app/delete/${id}`)
       .then(() => {
-        // Use the correct property for comparison (_id instead of id)
         setTodos(prevTodos => prevTodos.filter((todo) => todo._id !== id));
       })
       .catch(error => console.error(error));
   };
-  
 
   const completeTodo = (id) => {
     axios.put(`https://todo-app-two-ashy.vercel.app/complete/${id}`)
@@ -79,7 +76,6 @@ import axios from 'axios';
   return (
     <div className='ToDoList'>
       {loading ? (
-        // Add a loading spinner or message here
         <p>Loading...</p>
       ) : (
         <>
@@ -87,7 +83,7 @@ import axios from 'axios';
             Set your plan for today <br />
             {todos.length === 0 ? '' : `${todos.filter((todo) => todo.isComplete).length} / ${todos.length}`} Complete
           </h1>
-  
+
           <TodoForm onSubmit={addTodo} />
           <ToDo
             todos={todos}
@@ -99,7 +95,6 @@ import axios from 'axios';
       )}
     </div>
   );
-  
 }
 
 export default TodoList;
