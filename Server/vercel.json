@@ -4,9 +4,6 @@
     { "src": "*.js", "use": "@vercel/node" }
   ],
   "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/"
-      }
+    { "src": "/api/(.*)", "dest": "https://todo-app-two-ashy.vercel.app/$1" }
   ]
 }
