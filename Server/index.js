@@ -1,27 +1,17 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const bodyParser = require ('body-parser')
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
-app.use(express.json())
-const corsOptions = {
-  origin: 'https://todo-app-frontend-beryl.vercel.app',
-  methods: 'POST,GET,PUT,DELETE',
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-
+app.use(cors());
+app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tassk?retryWrites=true&w=majority');
-
-
-
-
+mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tazk');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
@@ -38,11 +28,6 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // Routes
-// Get all todos
-app.get('/', async (req, res) => {  
-    res.json("hello");
-
-});
 
 // Get all todos
 app.get('/todos', async (req, res) => {
