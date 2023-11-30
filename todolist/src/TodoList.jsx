@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TodoForm from './TodoForm';
 import ToDo from './ToDo';
+import axios from 'axios';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -11,9 +12,8 @@ function TodoList() {
   }, []);
 
   const fetchTodos = () => {
-    fetch('http://localhost:3001/todos')
-      .then(response => response.json())
-      .then(data => setTodos(data))
+    axios.get('http://localhost:4000/todos')
+      .then(response => setTodos(response.data))
       .catch(error => console.error(error));
   };
 
@@ -21,56 +21,40 @@ function TodoList() {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
     }
-
-    fetch('http://localhost:3001/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(todo),
-    })
-      .then(response => response.json())
-      .then(data => {
-        setTodos(prevTodos => [data, ...prevTodos]);
+  
+    axios.post('http://localhost:4000/add', todo)
+      .then(response => {
+        setTodos(prevTodos => [response.data, ...prevTodos]);
       })
       .catch(error => console.error(error));
   };
-
+  
   const updateTodo = (todoId, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
       return;
     }
 
-    fetch(`http://localhost:3001/update/${todoId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text: newValue.text }),
-    })
-      .then(response => response.json())
-      .then(data => {
+    axios.put(`http://localhost:4000/update/${todoId}`, { text: newValue.text })
+      .then(response => {
         setTodos(prevTodos =>
-          prevTodos.map((item) => (item._id === todoId ? { ...item, text: data.text } : item))
+          prevTodos.map((item) => (item._id === todoId ? { ...item, text: response.data.text } : item))
         );
       })
       .catch(error => console.error(error));
   };
 
   const removeTodo = (id) => {
-    fetch(`http://localhost:3001/delete/${id}`, {
-      method: 'DELETE',
-    })
+    axios.delete(`http://localhost:4000/delete/${id}`)
       .then(() => {
+        // Use the correct property for comparison (_id instead of id)
         setTodos(prevTodos => prevTodos.filter((todo) => todo._id !== id));
       })
       .catch(error => console.error(error));
   };
+  
 
   const completeTodo = (id) => {
-    fetch(`http://localhost:3001/complete/${id}`, {
-      method: 'PUT',
-    })
+    axios.put(`http://localhost:4000/complete/${id}`)
       .then(() => {
         setTodos(prevTodos =>
           prevTodos.map((todo) =>
