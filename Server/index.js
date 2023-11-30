@@ -2,7 +2,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require ('body-parser')
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -14,8 +13,7 @@ app.use(cors({
   credentials: true,
 }));
 
-
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tazk');
