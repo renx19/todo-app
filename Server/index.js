@@ -4,20 +4,23 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require ('body-parser')
 const app = express();
-const port = process.env.PORT || 3001;
+
+require('dotenv').config()
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI);
+const port = process.env.PORT || 4000;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 
-// Connect to MongoDB
-mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tazk');
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
 
 // Define Todo schema and model
 const todoSchema = new mongoose.Schema({
@@ -29,6 +32,10 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // Routes
+app.get('/', (req,res) => {
+  res.status(201).json({message:"connected to backend!"});
+})
+
 
 // Get all todos
 app.get('/todos', async (req, res) => {
