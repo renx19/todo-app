@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 
 // Middleware
 
@@ -102,6 +102,6 @@ app.put('/complete/:id', async (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
+app.listen(5000, () => {
   console.log("Server is Running")
 })
