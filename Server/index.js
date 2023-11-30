@@ -36,6 +36,9 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('Hello, this is your server!');
+});
 
 // Get all todos
 app.get('/todos', async (req, res) => {
