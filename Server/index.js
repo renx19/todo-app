@@ -7,13 +7,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
-const corsOptions = {
-  origin: 'https://todo-app-frontend-beryl.vercel.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
