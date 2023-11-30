@@ -7,7 +7,13 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+
+app.use(cors({
+  origin: 'https://todo-app-frontend-94mwk0ygq-renx19.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // enable set cookie
+}));
+
 app.use(bodyParser.json());
 
 // Connect to MongoDB
