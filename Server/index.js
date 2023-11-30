@@ -30,12 +30,12 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/api/hello', (req, res) => {
   res.send('Hello, this is your server!');
 });
 
 // Get all todos
-app.get('/todos', async (req, res) => {
+app.get('/api/todos', async (req, res) => {
   try {
     const todos = await Todo.find();
     res.json(todos);
@@ -45,7 +45,7 @@ app.get('/todos', async (req, res) => {
 });
 
 // Add todo
-app.post('/add', async (req, res) => {
+app.post('/api/add', async (req, res) => {
   try {
     const newTodo = new Todo({ text: req.body.text });
     const savedTodo = await newTodo.save();
@@ -56,7 +56,7 @@ app.post('/add', async (req, res) => {
 });
 
 // Update todo
-app.put('/update/:id', async (req, res) => {
+app.put('/api/update/:id', async (req, res) => {
   const { id } = req.params;
   const { text } = req.body;
 
@@ -69,7 +69,7 @@ app.put('/update/:id', async (req, res) => {
 });
 
 // Delete todo
-app.delete('/delete/:id', async (req, res) => {
+app.delete('/api/delete/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -81,7 +81,7 @@ app.delete('/delete/:id', async (req, res) => {
 });
 
 // Complete todo
-app.put('/complete/:id', async (req, res) => {
+app.put('/api/complete/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
