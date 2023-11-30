@@ -9,10 +9,11 @@ const port = process.env.PORT || 3001;
 // Middleware
 
 app.use(cors({
-  origin: 'https://todo-app-frontend-94mwk0ygq-renx19.vercel.app',
+  origin: 'https://todo-app-frontend-beryl.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // enable set cookie
+  credentials: true,
 }));
+
 
 app.use(bodyParser.json());
 
