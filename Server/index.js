@@ -1,16 +1,15 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require ('body-parser')
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors({
-  origin: 'https://todo-app-rho-pied.vercel.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-}));
+app.use(cors());
 app.use(express.json());
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://SHIRO:Lordwalker_12@cluster0.tavlp2j.mongodb.net/tazk');
@@ -30,12 +29,9 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // Routes
-app.get('/api/hello', (req, res) => {
-  res.send('Hello, this is your server!');
-});
 
 // Get all todos
-app.get('/api/todos', async (req, res) => {
+app.get('/todos', async (req, res) => {
   try {
     const todos = await Todo.find();
     res.json(todos);
@@ -45,7 +41,7 @@ app.get('/api/todos', async (req, res) => {
 });
 
 // Add todo
-app.post('/api/add', async (req, res) => {
+app.post('/add', async (req, res) => {
   try {
     const newTodo = new Todo({ text: req.body.text });
     const savedTodo = await newTodo.save();
@@ -56,7 +52,7 @@ app.post('/api/add', async (req, res) => {
 });
 
 // Update todo
-app.put('/api/update/:id', async (req, res) => {
+app.put('/update/:id', async (req, res) => {
   const { id } = req.params;
   const { text } = req.body;
 
@@ -69,7 +65,7 @@ app.put('/api/update/:id', async (req, res) => {
 });
 
 // Delete todo
-app.delete('/api/delete/:id', async (req, res) => {
+app.delete('/delete/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -80,8 +76,9 @@ app.delete('/api/delete/:id', async (req, res) => {
   }
 });
 
+
 // Complete todo
-app.put('/api/complete/:id', async (req, res) => {
+app.put('/complete/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
