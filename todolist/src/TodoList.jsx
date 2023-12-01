@@ -12,17 +12,17 @@ function TodoList() {
   }, []);
 
   const fetchTodos = () => {
-    axios.get('http://localhost:4000/todos')
+    axios.get('https://todo-app-backend-sooty.vercel.app/todos')
       .then(response => setTodos(response.data))
       .catch(error => console.error(error));
   };
-
+  
   const addTodo = (todo) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
     }
   
-    axios.post('http://localhost:4000/add', todo)
+    axios.post('https://todo-app-backend-sooty.vercel.app/add', todo)
       .then(response => {
         setTodos(prevTodos => [response.data, ...prevTodos]);
       })
@@ -33,8 +33,8 @@ function TodoList() {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
       return;
     }
-
-    axios.put(`http://localhost:4000/update/${todoId}`, { text: newValue.text })
+  
+    axios.put(`https://todo-app-backend-sooty.vercel.app/update/${todoId}`, { text: newValue.text })
       .then(response => {
         setTodos(prevTodos =>
           prevTodos.map((item) => (item._id === todoId ? { ...item, text: response.data.text } : item))
@@ -42,9 +42,9 @@ function TodoList() {
       })
       .catch(error => console.error(error));
   };
-
+  
   const removeTodo = (id) => {
-    axios.delete(`http://localhost:4000/delete/${id}`)
+    axios.delete(`https://todo-app-backend-sooty.vercel.app/delete/${id}`)
       .then(() => {
         // Use the correct property for comparison (_id instead of id)
         setTodos(prevTodos => prevTodos.filter((todo) => todo._id !== id));
@@ -52,16 +52,15 @@ function TodoList() {
       .catch(error => console.error(error));
   };
   
-
   const completeTodo = (id) => {
-    axios.put(`http://localhost:4000/complete/${id}`)
+    axios.put(`https://todo-app-backend-sooty.vercel.app/complete/${id}`)
       .then(() => {
         setTodos(prevTodos =>
           prevTodos.map((todo) =>
             todo._id === id ? { ...todo, isComplete: !todo.isComplete } : todo
           )
         );
-
+  
         if (todos.every((todo) => todo.isComplete)) {
           alert('Congratulations! You have completed all your to-do list.');
         }
